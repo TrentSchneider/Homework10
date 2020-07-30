@@ -10,6 +10,21 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+inquirer
+  .prompt([
+    {
+      type: "list",
+      name: "empType",
+      message: "What type of employee do you want to add?",
+      choices: [
+        "Engineer",
+        "Intern",
+        "Manager",
+        "All employees have been added",
+      ],
+    },
+  ])
+  .then((data) => {});
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)

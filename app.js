@@ -10,37 +10,70 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-
-inquirer
-      .prompt([
-        {
-          type: "list",
-          name: "role",
-          message: "What type of employee do you want to add?",
-          choices: [
-            "Engineer",
-            "Intern",
-            "Manager",
-            "All employees have been added",
-          ],
-        },
-      ])
-      .then((data) => {
-        new Employee(data.name, data.email, data.id); 
-        if (data.role === "Engineer"){ 
-            new Engineer (data.gitHub); 
-          
-        } else if (data.role === "Intern"){ 
-            new Intern (data.school); 
-           
-        } else if (data.role === "Manager"){ 
-            new Manager (data.officeNumber)
-          
-        } else if (data.role === "All employees have been added"){ 
-            render(data); 
-        }
-      });
-  }
+function empPrompt() {
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "role",
+        message: "What type of employee do you want to add?",
+        choices: [
+          "Engineer",
+          "Intern",
+          "Manager",
+          "All employees have been added",
+        ],
+      },
+      {
+        type: "input",
+        name: "name",
+        message: "What is the employee's name?",
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "What is the employee's email?",
+      },
+      {
+        type: "input",
+        name: "id",
+        message: "What is the employee's ID?",
+      },
+      {
+        type: "input",
+        name: "gitHub",
+        message: "What is the employee's GitHub username?",
+        when: (data) => data.role === "Engineer",
+      },
+      {
+        type: "input",
+        name: "school",
+        message: "What is the employee's school?",
+        when: (data) => data.role === "Intern",
+      },
+      {
+        type: "input",
+        name: "officeNumber",
+        message: "What is the employee's office number?",
+        when: (data) => data.role === "Manager",
+      },
+    ])
+    .then((data) => {
+      if (data.role === "Engineer") {
+        new Engineer(data.name, data.email, data.id, data.gitHub);
+        empPrompt();
+      } else if (data.role === "Intern") {
+        new Intern(data.name, data.email, data.id, data.school);
+        empPrompt();
+      } else if (data.role === "Manager") {
+        new Manager(data.name, data.email, data.id, data.officeNumber);
+        empPrompt();
+      } else if (data.role === "All employees have been added") {
+        render(data);
+      }
+    });
+}
+empPrompt();
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 

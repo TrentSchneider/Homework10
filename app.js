@@ -19,7 +19,7 @@ function empPrompt() {
       {
         type: "list",
         name: "role",
-        message: "What type of employee do you want to add?",
+        message: "What is the employee's role?",
         choices: [
           "Engineer",
           "Intern",
@@ -31,16 +31,19 @@ function empPrompt() {
         type: "input",
         name: "name",
         message: "What is the employee's name?",
+        when: (answers) => answers.role !== "All employees have been added",
       },
       {
         type: "input",
         name: "email",
         message: "What is the employee's email?",
+        when: (answers) => answers.role !== "All employees have been added",
       },
       {
         type: "input",
         name: "id",
         message: "What is the employee's ID?",
+        when: (answers) => answers.role !== "All employees have been added",
       },
       {
         type: "input",

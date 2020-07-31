@@ -79,8 +79,13 @@ function empPrompt() {
         );
         empPrompt();
       } else if (data.role === "All employees have been added") {
-        // render(employees);
-        console.log(employees);
+        render(employees)
+          .then((html) => {
+            return writeFileAsync("team.html", html);
+          })
+          .then(function () {
+            console.log("Successfully wrote to team.html file");
+          });
       }
     });
 }

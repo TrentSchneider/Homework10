@@ -26,14 +26,18 @@ inquirer
         },
       ])
       .then((data) => {
-        switch (data.choices) {
-          case "Engineer":
-
-          case "Intern":
-
-          case "Manager":
-
-          case "All employees have been added":
+        new Employee(data.name, data.email, data.id); 
+        if (data.role === "Engineer"){ 
+            new Engineer (data.gitHub); 
+          
+        } else if (data.role === "Intern"){ 
+            new Intern (data.school); 
+           
+        } else if (data.role === "Manager"){ 
+            new Manager (data.officeNumber)
+          
+        } else if (data.role === "All employees have been added"){ 
+            render(data); 
         }
       });
   }

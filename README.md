@@ -4,6 +4,10 @@
 
 This is a JS CLI that demonstrates my ability with JS CLIs. The CLI creates a series of prompts to get basic profile information for team members and then generate a website based off of the information to generate a team profile webpage.
 
+![image](https://user-images.githubusercontent.com/64096701/89092655-9f97f780-d381-11ea-81a0-e387bf3c77f7.png)
+
+![image](https://user-images.githubusercontent.com/64096701/89092702-0ddcba00-d382-11ea-9155-9fdf88b5ad48.png)
+
 ## Installation
 
 This JS CLI uses Inquirer for prompts and Jest for testing.

@@ -12,7 +12,6 @@ const render = require("./lib/htmlRenderer");
 
 const employees = [];
 
-empPrompt();
 function empPrompt() {
   inquirer
     .prompt([
@@ -79,16 +78,15 @@ function empPrompt() {
         );
         empPrompt();
       } else if (data.role === "All employees have been added") {
-        render(employees)
-          .then((html) => {
-            return writeFileAsync("team.html", html);
-          })
-          .then(function () {
-            console.log("Successfully wrote to team.html file");
-          });
+        var outHtml = render(employees);
+        return fs.writeFile("team.html", outHtml, function (err) {
+          if (err) throw err;
+          console.log("Successfully wrote to team.html file");
+        });
       }
     });
 }
+empPrompt();
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)

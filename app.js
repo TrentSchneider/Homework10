@@ -17,32 +17,34 @@ function empPrompt() {
     .prompt([
       {
         type: "list",
+        name: "addNew",
+        message: "What would you like to do?",
+        choices: ["Add new employee", "Finish entry and create html file"],
+      },
+      {
+        type: "list",
         name: "role",
         message: "What is the employee's role?",
-        choices: [
-          "Engineer",
-          "Intern",
-          "Manager",
-          "All employees have been added",
-        ],
+        choices: ["Engineer", "Intern", "Manager"],
+        when: (answers) => answers.addNew === "Add new employee",
       },
       {
         type: "input",
         name: "name",
         message: "What is the employee's name?",
-        when: (answers) => answers.role !== "All employees have been added",
+        when: (answers) => answers.addNew === "Add new employee",
       },
       {
         type: "input",
         name: "email",
         message: "What is the employee's email?",
-        when: (answers) => answers.role !== "All employees have been added",
+        when: (answers) => answers.addNew === "Add new employee",
       },
       {
         type: "input",
         name: "id",
         message: "What is the employee's ID?",
-        when: (answers) => answers.role !== "All employees have been added",
+        when: (answers) => answers.addNew === "Add new employee",
       },
       {
         type: "input",
@@ -68,22 +70,35 @@ function empPrompt() {
         employees.push(
           new Engineer(data.name, data.id, data.email, data.gitHub)
         );
-        empPrompt();
+        console.log("Employee added!");
+        setTimeout(function () {
+          console.clear();
+          empPrompt();
+        }, 3000);
       } else if (data.role === "Intern") {
         employees.push(new Intern(data.name, data.id, data.email, data.school));
-        empPrompt();
+        console.log("Employee added!");
+        setTimeout(function () {
+          console.clear();
+          empPrompt();
+        }, 3000);
       } else if (data.role === "Manager") {
         employees.push(
           new Manager(data.name, data.id, data.email, data.officeNumber)
         );
-        empPrompt();
-      } else if (data.role === "All employees have been added") {
+        console.log("Employee added!");
+        setTimeout(function () {
+          console.clear();
+          empPrompt();
+        }, 3000);
+      } else if (data.addNew === "Finish entry and create html file") {
         var outHtml = render(employees);
         return fs.writeFile(outputPath, outHtml, function (err) {
           if (err) throw err;
-          console.log("Successfully wrote to team.html file");
+          console.log("Successfully created team.html file!");
         });
       }
     });
 }
+console.clear();
 empPrompt();

@@ -1,3 +1,5 @@
+// TODO add validation
+// TODO insert new "employee" created comment to use something like "_____ has been added"
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
@@ -33,6 +35,14 @@ function empPrompt() {
         name: "name",
         message: "What is the employee's name?",
         when: (answers) => answers.addNew === "Add new employee",
+        // TODO work on this validation method to check for nothing being entered into prompt
+        // TODO work on stacked validation methods for different error return prompts
+        validate: (answer) => {
+          if (answer !== "") {
+            return true;
+          }
+          return "Please make sure a name is entered. (press any key to conitnue)";
+        },
       },
       {
         type: "input",

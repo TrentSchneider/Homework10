@@ -79,7 +79,7 @@ function empPrompt() {
         empPrompt();
       } else if (data.role === "All employees have been added") {
         var outHtml = render(employees);
-        return fs.writeFile("team.html", outHtml, function (err) {
+        return fs.writeFile(outputPath, outHtml, function (err) {
           if (err) throw err;
           console.log("Successfully wrote to team.html file");
         });

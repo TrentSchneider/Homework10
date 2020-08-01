@@ -66,15 +66,15 @@ function empPrompt() {
     .then((data) => {
       if (data.role === "Engineer") {
         employees.push(
-          new Engineer(data.name, data.email, data.id, data.gitHub)
+          new Engineer(data.name, data.id, data.email, data.gitHub)
         );
         empPrompt();
       } else if (data.role === "Intern") {
-        employees.push(new Intern(data.name, data.email, data.id, data.school));
+        employees.push(new Intern(data.name, data.id, data.email, data.school));
         empPrompt();
       } else if (data.role === "Manager") {
         employees.push(
-          new Manager(data.name, data.email, data.id, data.officeNumber)
+          new Manager(data.name, data.id, data.email, data.officeNumber)
         );
         empPrompt();
       } else if (data.role === "All employees have been added") {

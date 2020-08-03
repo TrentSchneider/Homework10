@@ -11,7 +11,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 
 const employees = [];
-
+// function to run prompts and create html page
 function empPrompt() {
   inquirer
     .prompt([
@@ -103,6 +103,7 @@ function empPrompt() {
       },
     ])
     .then((data) => {
+      // creates classes based off of prompt responses
       if (data.role === "Engineer") {
         employees.push(
           new Engineer(data.name, data.id, data.email, data.gitHub)
@@ -128,6 +129,7 @@ function empPrompt() {
           console.clear();
           empPrompt();
         }, 3000);
+        // creates html page if the user selects "Finish entry and create html file"
       } else if (data.addNew === "Finish entry and create html file") {
         var outHtml = render(employees);
         return fs.writeFile(outputPath, outHtml, function (err) {
@@ -137,5 +139,6 @@ function empPrompt() {
       }
     });
 }
+// once started, console clears and runs JS
 console.clear();
 empPrompt();

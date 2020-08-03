@@ -41,7 +41,7 @@ function empPrompt() {
           if (answer !== "") {
             return true;
           }
-          return "Please make sure a name is entered. (press any key to conitnue)";
+          return "Please make sure a name is entered.";
         },
       },
       {
@@ -49,30 +49,61 @@ function empPrompt() {
         name: "email",
         message: "What is the employee's email?",
         when: (answers) => answers.addNew === "Add new employee",
+        validate: (answer) => {
+          // regex obtained from http://zparacha.com/validate-email-address-using-javascript-regular-expression
+          if (/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(answer)) {
+            return true;
+          }
+          return "Please make sure a valid email address is entered.";
+        },
       },
       {
         type: "input",
         name: "id",
         message: "What is the employee's ID?",
         when: (answers) => answers.addNew === "Add new employee",
+        validate: (answer) => {
+          if (isNaN(answer) || answer === "") {
+            return "Please enter valid ID number.";
+          }
+          return true;
+        },
       },
       {
         type: "input",
         name: "gitHub",
         message: "What is the employee's GitHub username?",
         when: (data) => data.role === "Engineer",
+        validate: (answer) => {
+          if (answer !== "") {
+            return true;
+          }
+          return "Please make sure a GitHub username is entered.";
+        },
       },
       {
         type: "input",
         name: "school",
         message: "What is the employee's school?",
         when: (data) => data.role === "Intern",
+        validate: (answer) => {
+          if (answer !== "") {
+            return true;
+          }
+          return "Please make sure a school name is entered.";
+        },
       },
       {
         type: "input",
         name: "officeNumber",
         message: "What is the employee's office number?",
         when: (data) => data.role === "Manager",
+        validate: (answer) => {
+          if (isNaN(answer) || answer === "") {
+            return "Please enter valid ID number.";
+          }
+          return true;
+        },
       },
     ])
     .then((data) => {

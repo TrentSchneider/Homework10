@@ -1,5 +1,3 @@
-// TODO add validation
-// TODO insert new "employee" created comment to use something like "_____ has been added"
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
@@ -35,8 +33,6 @@ function empPrompt() {
         name: "name",
         message: "What is the employee's name?",
         when: (answers) => answers.addNew === "Add new employee",
-        // TODO work on this validation method to check for nothing being entered into prompt
-        // TODO work on stacked validation methods for different error return prompts
         validate: (answer) => {
           if (answer !== "") {
             return true;
@@ -111,14 +107,14 @@ function empPrompt() {
         employees.push(
           new Engineer(data.name, data.id, data.email, data.gitHub)
         );
-        console.log("Employee added!");
+        console.log(data.name + " has been added!");
         setTimeout(function () {
           console.clear();
           empPrompt();
         }, 3000);
       } else if (data.role === "Intern") {
         employees.push(new Intern(data.name, data.id, data.email, data.school));
-        console.log("Employee added!");
+        console.log(data.name + " has been added!");
         setTimeout(function () {
           console.clear();
           empPrompt();
@@ -127,7 +123,7 @@ function empPrompt() {
         employees.push(
           new Manager(data.name, data.id, data.email, data.officeNumber)
         );
-        console.log("Employee added!");
+        console.log(data.name + " has been added!");
         setTimeout(function () {
           console.clear();
           empPrompt();
